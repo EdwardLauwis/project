@@ -50,12 +50,14 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val username = snapshot.child("username").getValue(String::class.java)
-                val password = snapshot.child("password").getValue(String::class.java)
-                val phoneNumber = snapshot.child("phoneNumber").getValue(String::class.java)
-                val booksRead = snapshot.child("booksRead").getValue(Int::class.java)
+                val username = snapshot.child("username").getValue(String::class.java).toString()
+                val password = snapshot.child("password").getValue(String::class.java).toString()
+                val phoneNumber = snapshot.child("phoneNumber").getValue(String::class.java).toString()
+                val booksRead = snapshot.child("booksRead").getValue(Int::class.java)?.toInt()
 
-                val userTemp = if (username != null && password != null && phoneNumber != null && booksRead != null) {
+                Toast.makeText(this@MainActivity, "$booksRead", Toast.LENGTH_SHORT).show()
+
+                val userTemp = if (booksRead != null) {
                     User(username, password, phoneNumber, booksRead)
                 } else {
                     null

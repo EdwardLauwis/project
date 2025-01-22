@@ -31,7 +31,6 @@ class ProfilePage : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
-
         }
     }
 }

@@ -55,13 +55,11 @@ class LoginPage : AppCompatActivity(), OnClickListener {
                                 val name: String = childSnapshot.child("username").getValue(String::class.java).toString()
                                 val pass: String = childSnapshot.child("password").getValue(String::class.java).toString()
                                 val phoneNumber: String = childSnapshot.child("phoneNumber").getValue(String::class.java).toString()
-                                val booksRead: Int = childSnapshot.child("phoneNumber").getValue(String::class.java)
-                                    ?.toIntOrNull()
-                                    ?: 0
+                                val booksRead: Int? = childSnapshot.child("booksRead").getValue(Int::class.java)?.toInt()
                                 println("ini dia$name$pass$phoneNumber$booksRead")
 
                                 usernameDataExist = true
-                                user = User(name, pass, phoneNumber, booksRead)
+                                user = booksRead?.let { User(name, pass, phoneNumber, it) }!!
                                 userSession.session = user
                                 break
                             }
