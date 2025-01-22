@@ -55,8 +55,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 val phoneNumber = snapshot.child("phoneNumber").getValue(String::class.java).toString()
                 val booksRead = snapshot.child("booksRead").getValue(Int::class.java)?.toInt()
 
-                Toast.makeText(this@MainActivity, "$booksRead", Toast.LENGTH_SHORT).show()
-
                 val userTemp = if (booksRead != null) {
                     User(username, password, phoneNumber, booksRead)
                 } else {

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import com.example.e_library.databinding.ActivityProfilePageBinding
 
 class ProfilePage : AppCompatActivity() {
@@ -20,6 +21,19 @@ class ProfilePage : AppCompatActivity() {
             setDisplayShowHomeEnabled(true)
         }
         supportActionBar?.title = ""
+
+        binding.ProfileUsername.text = userSession.session.username
+        binding.ProfilePassword.text = passMaker()
+        binding.ProfilePhoneNumber.text = userSession.session.phoneNumber
+        binding.ProfileBooksRead.text = userSession.session.booksRead.toString()
+    }
+
+    private fun passMaker(): String {
+        val pass = userSession.session.password
+        if (pass.isNotEmpty()) {
+            return pass[0] + "*".repeat(pass.length - 1)
+        }
+        return ""
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
