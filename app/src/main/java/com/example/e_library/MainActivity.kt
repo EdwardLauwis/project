@@ -101,7 +101,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
 
     override fun onClick(p0: View?) {
         if (p0 == Binding.LinearLayoutEvents){
-
+            val intent = Intent(this@MainActivity, EventPage::class.java)
+            startActivity(intent)
         } else if (p0 == Binding.LinearLayoutBooks){
             val intent = Intent(this@MainActivity, BooksPage::class.java)
             startActivity(intent)
