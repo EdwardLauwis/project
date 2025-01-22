@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "66200324578",
+    "firebase_url": "https://e-library-dbd7e-default-rtdb.firebaseio.com",
+    "project_id": "e-library-dbd7e",
+    "storage_bucket": "e-library-dbd7e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66200324578:android:48b81a1e492269d4eb11bb",
+        "android_client_info": {
+          "package_name": "com.example.e_library"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgZJABKgHfRxZCW9XTpNcVx7g5hAbZa3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
