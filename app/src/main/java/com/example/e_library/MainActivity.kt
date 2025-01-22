@@ -4,14 +4,12 @@ import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.e_library.databinding.ActivityMainBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -35,11 +33,10 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         val backgroundBooks = linearLayoutBooks.background
 
         if (backgroundEvent is AnimationDrawable) {
-            val animationDrawableEvent = backgroundEvent as AnimationDrawable
             val animationDrawableBooks = backgroundBooks as AnimationDrawable
-            animationDrawableEvent.setEnterFadeDuration(2500)
-            animationDrawableEvent.setExitFadeDuration(4000)
-            animationDrawableEvent.start()
+            backgroundEvent.setEnterFadeDuration(2500)
+            backgroundEvent.setExitFadeDuration(4000)
+            backgroundEvent.start()
 
             animationDrawableBooks.setEnterFadeDuration(2500)
             animationDrawableBooks.setExitFadeDuration(4000)

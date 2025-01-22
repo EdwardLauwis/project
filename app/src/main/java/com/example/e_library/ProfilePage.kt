@@ -3,11 +3,8 @@ package com.example.e_library
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import com.example.e_library.databinding.ActivityMainBinding
 import com.example.e_library.databinding.ActivityProfilePageBinding
-import com.google.firebase.database.FirebaseDatabase
 
 class ProfilePage : AppCompatActivity() {
     private lateinit var binding: ActivityProfilePageBinding
