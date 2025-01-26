@@ -10,7 +10,7 @@ import android.content.Context
 class BooksAdapter(private val context: Context, private val bookList: ArrayList<book>) :
     BaseAdapter() {
     override fun getCount(): Int {
-        return bookList.size;
+        return bookList.size
     }
 
     override fun getItem(p0: Int): Any {
@@ -18,7 +18,7 @@ class BooksAdapter(private val context: Context, private val bookList: ArrayList
     }
 
     override fun getItemId(p0: Int): Long {
-        TODO("Not yet implemented")
+        return p0.toLong()
     }
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {

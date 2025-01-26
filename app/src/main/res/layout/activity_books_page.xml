@@ -8,13 +8,20 @@
              android:background="@color/bluegrey900"
              tools:context=".BooksPage">
 
+    <ListView
+        android:id="@+id/ListViewBooks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-
-  <ListView
-      android:id="@+id/ListViewBooks"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>
-
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:text="@string/add"
+        android:backgroundTint="@color/bluegrey800"
+        android:textColor="@color/white" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -25,5 +32,6 @@
         app:labelVisibilityMode="labeled"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        android:background="@color/bluegrey800" />
+        android:background="@color/bluegrey800"/>
+
 </FrameLayout>

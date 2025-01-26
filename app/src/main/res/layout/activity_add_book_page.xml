@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".AddBookPage"
+             android:background="@color/bluegrey900">
+
+    <androidx.cardview.widget.CardView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="20dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_gravity="center">
+
+                <EditText
+                    android:id="@+id/EditTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title"
+                    android:padding="12dp"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:inputType="text"
+                    android:autofillHints="Title" />
+
+                <EditText
+                    android:id="@+id/EditTextYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/year"
+                    android:padding="12dp"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:inputType="number"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="Year" />
+
+                <EditText
+                    android:id="@+id/EditTextGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/genre"
+                    android:padding="12dp"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:inputType="text"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="Genre" />
+
+                <EditText
+                    android:id="@+id/EditTextDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    android:padding="12dp"
+                    android:textColorHint="@android:color/darker_gray"
+                    android:inputType="text"
+                    android:layout_marginTop="16dp"
+                    android:autofillHints="Description"/>
+
+                <TextView
+                    android:id="@+id/TextViewError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/red"/>
+
+                <Button
+                    android:id="@+id/ButtonAdd"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/i_n_p_u_t"
+                    android:textColor="@android:color/white"
+                    android:layout_marginTop="24dp"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+</FrameLayout>
