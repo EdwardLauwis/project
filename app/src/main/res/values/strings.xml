@@ -1,3 +1,3 @@
 <resources>
-    <string name="app_name">e-Library</string>
+    <string name="app_name">e-Library</string><string name="books_have_been_read">books have been read</string><string name="username">Username:</string><string name="events">EVENTS</string><string name="arrow">Arrow</string><string name="books">BOOKS</string><string name="books_logo">Books_Logo</string><string name="events_logo">Events_Logo</string>
 </resources>
