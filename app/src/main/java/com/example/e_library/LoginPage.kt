@@ -15,33 +15,34 @@ import com.google.firebase.database.ValueEventListener
 
 class LoginPage : AppCompatActivity(), OnClickListener {
 
-    private lateinit var Binding: ActivityLoginPageBinding
+    private lateinit var binding: ActivityLoginPageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_page)
-        Binding= ActivityLoginPageBinding.inflate(layoutInflater)
-        setContentView(Binding.root)
+        binding= ActivityLoginPageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
-        Binding.ButtonLogin.setOnClickListener(this)
+        binding.ButtonLogin.setOnClickListener(this)
+        binding.TextViewBackToRegisterPage.setOnClickListener(this)
     }
 
     override fun onClick(p0: View?) {
         val firebaseDatabase = FirebaseDatabase.getInstance()
-        if (p0 == Binding.ButtonLogin){
+        if (p0 == binding.ButtonLogin){
             val databaseReference: DatabaseReference = firebaseDatabase.getReference("Users")
 
-            val username: String = Binding.EditTextUsername.text.toString()
-            val password: String = Binding.EditTextPassword.text.toString()
+            val username: String = binding.EditTextUsername.text.toString()
+            val password: String = binding.EditTextPassword.text.toString()
 
             if (username.isEmpty()){
-                Binding.EditTextUsername.error = "Cannot be Empty"
+                binding.EditTextUsername.error = "Cannot be Empty"
                 return
             }
 
             if (password.isEmpty()){
-                Binding.EditTextPassword.error = "Cannot be Empty"
+                binding.EditTextPassword.error = "Cannot be Empty"
                 return
             }
 
@@ -56,7 +57,6 @@ class LoginPage : AppCompatActivity(), OnClickListener {
                                 val pass: String = childSnapshot.child("password").getValue(String::class.java).toString()
                                 val phoneNumber: String = childSnapshot.child("phoneNumber").getValue(String::class.java).toString()
                                 val booksRead: Int? = childSnapshot.child("booksRead").getValue(Int::class.java)?.toInt()
-                                println("ini dia$name$pass$phoneNumber$booksRead")
 
                                 usernameDataExist = true
                                 user = booksRead?.let { User(name, pass, phoneNumber, it) }!!
@@ -83,6 +83,9 @@ class LoginPage : AppCompatActivity(), OnClickListener {
                     Toast.makeText(this, "Does not exist", Toast.LENGTH_SHORT).show()
                 }
             }
+        } else if (p0 == binding.TextViewBackToRegisterPage){
+            val intent = Intent(this@LoginPage, RegisterPage::class.java)
+            startActivity(intent)
         }
     }
 }

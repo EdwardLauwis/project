@@ -1,6 +1,8 @@
 package com.example.e_library
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Toast
@@ -17,7 +19,6 @@ class AddBookPage : AppCompatActivity(), OnClickListener {
 
         binding = ActivityAddBookPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.hide()
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -60,6 +61,17 @@ class AddBookPage : AppCompatActivity(), OnClickListener {
             }.addOnFailureListener {
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(this@AddBookPage, BooksPage::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

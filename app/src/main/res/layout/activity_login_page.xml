@@ -17,7 +17,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/logoperpus"/>
+            android:src="@drawable/logoperpus"
+            android:contentDescription="@string/logo_perpus" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -35,32 +36,41 @@
               android:layout_gravity="center">
 
               <EditText
-
                   android:id="@+id/EditTextUsername"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:hint="Username"
+                  android:hint="@string/username"
                   android:padding="12dp"
                   android:textColorHint="@android:color/darker_gray"
-                  android:inputType="text"/>
+                  android:inputType="text"
+                  android:autofillHints="username"/>
 
               <EditText
                   android:id="@+id/EditTextPassword"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:hint="Password"
+                  android:hint="@string/password"
                   android:padding="12dp"
                   android:textColorHint="@android:color/darker_gray"
                   android:inputType="textPassword"
-                  android:layout_marginTop="16dp"/>
+                  android:layout_marginTop="16dp"
+                  android:autofillHints="password"/>
+
+              <TextView
+                  android:layout_marginTop="10dp"
+                  android:id="@+id/TextViewBackToRegisterPage"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="@string/back_to_register_page"
+                  android:gravity="center"/>
 
               <Button
                   android:id="@+id/ButtonLogin"
                   android:layout_width="300dp"
                   android:layout_height="wrap_content"
-                  android:text="L o g i n"
+                  android:text="@string/l_o_g_i_n"
                   android:textColor="@android:color/white"
-                  android:layout_marginTop="24dp"
+                  android:layout_marginTop="15dp"
                   android:textAllCaps="false"/>
               </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.example.e_library
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
 import com.example.e_library.databinding.ActivityBooksPageBinding
@@ -61,6 +62,17 @@ class BooksPage : AppCompatActivity(), OnClickListener{
         if (p0 == binding.buttonAdd){
             val intent = Intent(this@BooksPage, AddBookPage::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(this@BooksPage, MainActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

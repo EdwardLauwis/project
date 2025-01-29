@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
+import android.view.View
+import android.view.View.OnClickListener
 import com.example.e_library.databinding.ActivityProfilePageBinding
+import com.google.firebase.database.FirebaseDatabase
 
-class ProfilePage : AppCompatActivity() {
+class ProfilePage : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityProfilePageBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,8 @@ class ProfilePage : AppCompatActivity() {
         binding.ProfilePassword.text = passMaker()
         binding.ProfilePhoneNumber.text = userSession.session.phoneNumber
         binding.ProfileBooksRead.text = userSession.session.booksRead.toString()
+
+        binding.ButtonLogOut.setOnClickListener(this)
     }
 
     private fun passMaker(): String {
@@ -45,6 +49,20 @@ class ProfilePage : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onClick(p0: View?) {
+        if (p0 == binding.ButtonLogOut){
+            val firebaseDatabase = FirebaseDatabase.getInstance()
+            val databaseReference = firebaseDatabase.getReference("userSession")
+
+            val user = User("", "", "", 0)
+
+            databaseReference.setValue(user)
+
+            val intent = Intent(this@ProfilePage, RegisterPage::class.java)
+            startActivity(intent)
         }
     }
 }
