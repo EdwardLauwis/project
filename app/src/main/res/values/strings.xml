@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">e-Library</string>
     <string name="books_have_been_read">books have been read</string>
-    <string name="username">Username:</string>
+    <string name="username">Username</string>
     <string name="events">EVENTS</string>
     <string name="arrow">Arrow</string>
     <string name="books">BOOKS</string>
@@ -13,5 +13,9 @@
     <string name="genre">Genre</string>
     <string name="description">Description</string>
     <string name="i_n_p_u_t">I n p u t</string>
-    <string name="Please_fill_in_all_fields_correctly">Please fill in all fields correctly.</string><string name="password">Password</string><string name="back_to_register_page">back to register page?</string><string name="l_o_g_i_n">L o g i n</string><string name="logo_perpus">Logo_Perpus</string>
+    <string name="Please_fill_in_all_fields_correctly">Please fill in all fields correctly.</string>
+    <string name="password">Password</string>
+    <string name="back_to_register_page">back to register page?</string>
+    <string name="l_o_g_i_n">L o g i n</string>
+    <string name="logo_perpus">Logo_Perpus</string><string name="save">S a v e</string><string name="edit_empty_field">If there is an empty field, the value will be the same as the previous value.</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.Toast
 import com.example.e_library.databinding.ActivityBooksPageBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,7 +35,6 @@ class BooksPage : AppCompatActivity(), OnClickListener{
         database = FirebaseDatabase.getInstance()
         databaseReference = database.getReference("Books")
 
-
         databaseReference.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 booksList.clear()
@@ -49,6 +49,29 @@ class BooksPage : AppCompatActivity(), OnClickListener{
             }
         })
 
+        binding.ListViewBooks.setOnItemLongClickListener { _, _, position, _ ->
+            val selectedBook = booksList[position]
+
+            val options = arrayOf("Edit", "Delete")
+            val builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Choose an action")
+            builder.setItems(options) { _, which ->
+                when (which) {
+                    0 -> { // For edit
+                        val intent = Intent(this, EditBookPage::class.java)
+                        intent.putExtra("bookTitle", selectedBook.title)
+                        startActivity(intent)
+                    }
+                    1 -> { // For delete
+                         deleteBook(selectedBook.title)
+                    }
+                }
+            }
+            builder.show()
+
+            true
+        }
+
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
@@ -56,6 +79,47 @@ class BooksPage : AppCompatActivity(), OnClickListener{
         supportActionBar?.title = ""
 
         binding.buttonAdd.setOnClickListener(this)
+
+
+    }
+
+    private fun deleteBook(bookTitle: String){
+        val firebaseDatabase = FirebaseDatabase.getInstance()
+        val reference: DatabaseReference = firebaseDatabase.getReference("Books")
+
+        fun CheckBook(callback: (Boolean) -> Unit) {
+            reference.addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var isDeleted = false
+                    for (childSnapshot in snapshot.children) {
+                        // Cek apakah title cocok dengan bookTitle yang diberikan
+                        if (childSnapshot.child("title").getValue(String::class.java).equals(bookTitle)) {
+                            // Hapus buku dari Firebase
+                            childSnapshot.ref.removeValue()  // Menghapus data buku berdasarkan referensi
+                            isDeleted = true
+                            break
+                        }
+                    }
+
+                    callback(isDeleted)  // Kirimkan status apakah penghapusan berhasil
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    callback(false)  // Jika ada kesalahan, kembalikan false
+                }
+            })
+        }
+
+        CheckBook { isDeleted ->
+            if (isDeleted) {
+                // Tampilkan pesan jika buku berhasil dihapus
+                Toast.makeText(this, "Buku berhasil dihapus!", Toast.LENGTH_SHORT).show()
+            } else {
+                // Tampilkan pesan jika buku tidak ditemukan
+                Toast.makeText(this, "Buku tidak ditemukan!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onClick(p0: View?) {
