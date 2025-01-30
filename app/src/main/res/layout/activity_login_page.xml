@@ -30,10 +30,12 @@
 
         <LinearLayout
               android:orientation="vertical"
-              android:layout_width="320dp"
+              android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:gravity="center"
-              android:layout_gravity="center">
+              android:layout_gravity="center"
+              android:layout_marginEnd="10dp"
+              android:layout_marginStart="10dp">
 
               <EditText
                   android:id="@+id/EditTextUsername"
@@ -67,12 +69,15 @@
 
               <Button
                   android:id="@+id/ButtonLogin"
-                  android:layout_width="300dp"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:text="@string/l_o_g_i_n"
                   android:textColor="@android:color/white"
                   android:layout_marginBottom="10dp"
-                  android:textAllCaps="false"/>
+                  android:textAllCaps="false"
+                  android:backgroundTint="@color/bluegrey900"
+                  android:layout_marginStart="20dp"
+                  android:layout_marginEnd="20dp"/>
               </LinearLayout>
 
         </androidx.cardview.widget.CardView>

@@ -2,74 +2,68 @@ package com.example.e_library
 
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import com.example.e_library.databinding.ActivityMainBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
-class MainActivity : AppCompatActivity(), OnClickListener {
-    private lateinit var Binding: ActivityMainBinding
+class MainActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        Binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(Binding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val linearLayoutEvents: LinearLayout = Binding.LinearLayoutEvents
-        val linearLayoutBooks: LinearLayout = Binding.LinearLayoutBooks
+        // Setup ActionBarDrawerToggle
+        val toggle = ActionBarDrawerToggle(this, binding.DrawerLayoutParent, R.string.open_drawer, R.string.close_drawer)
+        binding.DrawerLayoutParent.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val linearLayoutEvents: LinearLayout = binding.LinearLayoutEvents
+        val linearLayoutBooks: LinearLayout = binding.LinearLayoutBooks
 
         val backgroundEvent = linearLayoutEvents.background
         val backgroundBooks = linearLayoutBooks.background
 
-        if (backgroundEvent is AnimationDrawable) {
-            val animationDrawableBooks = backgroundBooks as AnimationDrawable
+        if (backgroundEvent is AnimationDrawable && backgroundBooks is AnimationDrawable) {
             backgroundEvent.setEnterFadeDuration(2500)
             backgroundEvent.setExitFadeDuration(4000)
             backgroundEvent.start()
 
-            animationDrawableBooks.setEnterFadeDuration(2500)
-            animationDrawableBooks.setExitFadeDuration(4000)
-            animationDrawableBooks.start()
+            backgroundBooks.setEnterFadeDuration(2500)
+            backgroundBooks.setExitFadeDuration(4000)
+            backgroundBooks.start()
         } else {
             Toast.makeText(this, "Background is not an AnimationDrawable", Toast.LENGTH_SHORT).show()
         }
 
-        val firebaseDatabase = FirebaseDatabase.getInstance()
-        val databaseReference = firebaseDatabase.getReference("userSession")
-
+        val databaseReference = FirebaseDatabase.getInstance().getReference("userSession")
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val username = snapshot.child("username").getValue(String::class.java).toString()
-                val password = snapshot.child("password").getValue(String::class.java).toString()
-                val phoneNumber = snapshot.child("phoneNumber").getValue(String::class.java).toString()
-                val booksRead = snapshot.child("booksRead").getValue(Int::class.java)?.toInt()
+                val username = snapshot.child("username").getValue(String::class.java).orEmpty()
+                val password = snapshot.child("password").getValue(String::class.java).orEmpty()
+                val phoneNumber = snapshot.child("phoneNumber").getValue(String::class.java).orEmpty()
+                val booksRead = snapshot.child("booksRead").getValue(Int::class.java) ?: 0
 
-                val userTemp = if (booksRead != null) {
-                    User(username, password, phoneNumber, booksRead)
-                } else {
-                    null
-                }
-
-                userSession.session = userTemp ?: User()
+                userSession.session = User(username, password, phoneNumber, booksRead)
 
                 if (userSession.session.username.isEmpty()) {
-                    val intent = Intent(this@MainActivity, RegisterPage::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this@MainActivity, RegisterPage::class.java))
                     finish()
                 }
-                Binding.TextViewUsername.text = username
-                Binding.TextViewBooksRead.text = booksRead.toString()
+
+                binding.TextViewUsername.text = username
+                binding.TextViewBooksRead.text = booksRead.toString()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -77,58 +71,51 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             }
         })
 
-        Binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId){
-                R.id.NavigationHome -> {
-                    true
-                }
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.NavigationHome -> true
                 R.id.NavigationSearch -> {
+                    Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.NavigationProfile -> {
-                    val intent = Intent(this, ProfilePage::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, ProfilePage::class.java))
                     true
                 }
                 else -> false
             }
         }
-        Binding.LinearLayoutEvents.setOnClickListener(this)
-        Binding.LinearLayoutBooks.setOnClickListener(this)
+
+        binding.LinearLayoutEvents.setOnClickListener(this)
+        binding.LinearLayoutBooks.setOnClickListener(this)
     }
 
-    override fun onClick(p0: View?) {
-        if (p0 == Binding.LinearLayoutEvents){
-//            val intent = Intent(this@MainActivity, EventPage::class.java)
-//            startActivity(intent)
-
-            Toast.makeText(this@MainActivity, "Comming soon", Toast.LENGTH_SHORT).show()
-        } else if (p0 == Binding.LinearLayoutBooks){
-            val intent = Intent(this@MainActivity, BooksPage::class.java)
-            startActivity(intent)
+    override fun onClick(view: View?) {
+        when (view) {
+            binding.LinearLayoutEvents -> Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show()
+            binding.LinearLayoutBooks -> startActivity(Intent(this, BooksPage::class.java))
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.logout, menu)
+        menuInflater.inflate(R.menu.aboutus, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
-            R.id.ButtonLogOut -> {
-                val firebaseDatabase = FirebaseDatabase.getInstance()
-                val databaseReference = firebaseDatabase.getReference("userSession")
-
-                val user = User("", "", "", 0)
-
-                databaseReference.setValue(user)
-
-                val intent = Intent(this@MainActivity, RegisterPage::class.java)
-                startActivity(intent)
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (binding.DrawerLayoutParent.isDrawerOpen(GravityCompat.START)) {
+                    binding.DrawerLayoutParent.closeDrawer(GravityCompat.START)
+                } else {
+                    binding.DrawerLayoutParent.openDrawer(GravityCompat.START)
+                }
                 true
             }
-
+            R.id.ButtonAboutUs -> {
+                startActivity(Intent(this, AboutUsPage::class.java))
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

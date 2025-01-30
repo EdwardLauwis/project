@@ -17,5 +17,18 @@
     <string name="password">Password</string>
     <string name="back_to_register_page">back to register page?</string>
     <string name="l_o_g_i_n">L o g i n</string>
-    <string name="logo_perpus">Logo_Perpus</string><string name="save">S a v e</string><string name="edit_empty_field">If there is an empty field, the value will be the same as the previous value.</string>
+    <string name="logo_perpus">Logo_Perpus</string>
+    <string name="save">S a v e</string>
+    <string name="edit_empty_field">If there is an empty field, the value will be the same as the previous value.</string>
+    <string name="register">Register</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="redirect_login">Already have an account? Login</string>
+    <string name="edit">Edit</string>
+    <string name="log_out">Log Out</string>
+    <string name="about_us">About Us</string>
+    <string name="aboutuslogo">AboutUsLogo</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
 </resources>

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnClickListener
+import android.widget.Toast
 import com.example.e_library.databinding.ActivityProfilePageBinding
 import com.google.firebase.database.FirebaseDatabase
 
@@ -17,17 +18,31 @@ class ProfilePage : AppCompatActivity(), OnClickListener {
         binding = ActivityProfilePageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
-        supportActionBar?.title = ""
+        supportActionBar?.hide()
 
         binding.ProfileUsername.text = userSession.session.username
         binding.ProfilePassword.text = passMaker()
         binding.ProfilePhoneNumber.text = userSession.session.phoneNumber
         binding.ProfileBooksRead.text = userSession.session.booksRead.toString()
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId){
+                R.id.NavigationHome -> {
+                    val intent = Intent(this@ProfilePage, MainActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.NavigationSearch -> {
+                    Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.NavigationProfile -> {
+
+                    true
+                }
+                else -> false
+            }
+        }
 
         binding.ButtonLogOut.setOnClickListener(this)
     }

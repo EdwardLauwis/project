@@ -17,7 +17,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/logoperpus"/>
+            android:src="@drawable/logoperpus"
+            android:contentDescription="@string/logo_perpus" />
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -29,72 +30,72 @@
 
           <LinearLayout
               android:orientation="vertical"
-              android:layout_width="320dp"
-              android:layout_height="400dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginStart="10dp"
+              android:layout_marginEnd="10dp"
               android:gravity="center"
               android:layout_gravity="center">
 
               <EditText
-
                   android:id="@+id/EditTextUsername"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:hint="Username"
-                  android:padding="12dp"
+                  android:hint="@string/username"
+                  android:paddingTop="20dp"
                   android:textColorHint="@android:color/darker_gray"
-                  android:inputType="text"/>
+                  android:inputType="text"
+                  android:autofillHints="username" />
 
               <EditText
                   android:id="@+id/EditTextPassword"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:hint="Password"
-                  android:padding="12dp"
+                  android:hint="@string/password"
                   android:textColorHint="@android:color/darker_gray"
                   android:inputType="textPassword"
-                  android:layout_marginTop="16dp"/>
+                  android:layout_marginTop="16dp"
+                  android:autofillHints="password"/>
 
               <EditText
                   android:id="@+id/EditTextConPassword"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:hint="ConfPassword"
-                  android:padding="12dp"
+                  android:hint="@string/confirm_password"
                   android:textColorHint="@android:color/darker_gray"
                   android:inputType="textPassword"
-                  android:layout_marginTop="16dp"/>
+                  android:layout_marginTop="16dp"
+                  android:autofillHints="confirm_password"/>
 
               <EditText
                   android:id="@+id/EditTextPhoneNumber"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:hint="Phone Number"
-                  android:padding="12dp"
+                  android:hint="@string/phone_number"
                   android:textColorHint="@android:color/darker_gray"
-                  android:inputType="number"
-                  android:layout_marginTop="16dp"/>
+                  android:inputType="phone"
+                  android:layout_marginTop="16dp"
+                  android:autofillHints="phone_number" />
 
-              <!-- Button Register -->
               <Button
+                  android:gravity="center"
                   android:id="@+id/ButtonRegister"
-                  android:layout_width="320dp"
+                  android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:text="Register"
+                  android:text="@string/register"
                   android:textColor="@android:color/white"
-                  android:layout_marginTop="24dp"
-                  android:padding="12dp"
-                  android:textAllCaps="false"/>
+                  android:textAllCaps="false"
+                  android:backgroundTint="@color/bluegrey900"/>
 
-              <!-- Text untuk login -->
               <TextView
                   android:id="@+id/TextViewLoginText"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Already have an account? Login"
+                  android:text="@string/redirect_login"
                   android:textColor="@android:color/black"
                   android:textSize="14sp"
-                  android:layout_marginTop="16dp"
-                  android:gravity="center"/>
+                  android:gravity="center"
+                  android:layout_marginBottom="10dp"/>
 
               </LinearLayout>
         </androidx.cardview.widget.CardView>

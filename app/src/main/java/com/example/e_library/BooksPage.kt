@@ -79,8 +79,6 @@ class BooksPage : AppCompatActivity(), OnClickListener{
         supportActionBar?.title = ""
 
         binding.buttonAdd.setOnClickListener(this)
-
-
     }
 
     private fun deleteBook(bookTitle: String){
@@ -93,31 +91,27 @@ class BooksPage : AppCompatActivity(), OnClickListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     var isDeleted = false
                     for (childSnapshot in snapshot.children) {
-                        // Cek apakah title cocok dengan bookTitle yang diberikan
                         if (childSnapshot.child("title").getValue(String::class.java).equals(bookTitle)) {
-                            // Hapus buku dari Firebase
-                            childSnapshot.ref.removeValue()  // Menghapus data buku berdasarkan referensi
+                            childSnapshot.ref.removeValue()
                             isDeleted = true
                             break
                         }
                     }
 
-                    callback(isDeleted)  // Kirimkan status apakah penghapusan berhasil
+                    callback(isDeleted)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    callback(false)  // Jika ada kesalahan, kembalikan false
+                    callback(false)
                 }
             })
         }
 
         CheckBook { isDeleted ->
             if (isDeleted) {
-                // Tampilkan pesan jika buku berhasil dihapus
-                Toast.makeText(this, "Buku berhasil dihapus!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Delete Succeed!", Toast.LENGTH_SHORT).show()
             } else {
-                // Tampilkan pesan jika buku tidak ditemukan
-                Toast.makeText(this, "Buku tidak ditemukan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Delete Failed!", Toast.LENGTH_SHORT).show()
             }
         }
     }
