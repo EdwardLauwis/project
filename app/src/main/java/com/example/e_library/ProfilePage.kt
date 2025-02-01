@@ -8,7 +8,10 @@ import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Toast
 import com.example.e_library.databinding.ActivityProfilePageBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ProfilePage : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityProfilePageBinding
@@ -19,6 +22,29 @@ class ProfilePage : AppCompatActivity(), OnClickListener {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        val databaseReference = FirebaseDatabase.getInstance().getReference("userSession")
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val username = snapshot.child("username").getValue(String::class.java).orEmpty()
+                val password = snapshot.child("password").getValue(String::class.java).orEmpty()
+                val phoneNumber = snapshot.child("phoneNumber").getValue(String::class.java).orEmpty()
+                val booksRead = snapshot.child("booksRead").getValue(Int::class.java) ?: 0
+
+                userSession.session = User(username, password, phoneNumber, booksRead)
+
+                if (userSession.session.username.isEmpty()) {
+                    startActivity(Intent(this@ProfilePage, RegisterPage::class.java))
+                    finish()
+                }
+
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                error.toException().printStackTrace()
+            }
+        })
 
         binding.ProfileUsername.text = userSession.session.username
         binding.ProfilePassword.text = passMaker()
@@ -45,6 +71,7 @@ class ProfilePage : AppCompatActivity(), OnClickListener {
         }
 
         binding.ButtonLogOut.setOnClickListener(this)
+        binding.ButtonEdit.setOnClickListener(this)
     }
 
     private fun passMaker(): String {
